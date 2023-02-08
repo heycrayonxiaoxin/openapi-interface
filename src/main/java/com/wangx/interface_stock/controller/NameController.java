@@ -1,5 +1,7 @@
 package com.wangx.interface_stock.controller;
 
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.wangx.openapiclientsdk.model.User;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 public class NameController {
 
     @GetMapping("/get")
-    public String getNameByGet(String name, HttpServletRequest request) {
-        return "GET 你的名字是" + name;
+    public JSONObject getNameByGet(String name, HttpServletRequest request) {
+        return JSONUtil.createObj().set("yourName", name);
     }
 
     @PostMapping("/post")
@@ -25,7 +27,7 @@ public class NameController {
     }
 
     @PostMapping("/user")
-    public String getUsernameByPost(@RequestBody User user, HttpServletRequest request) {
+    public JSONObject getUsernameByPost(@RequestBody User user, HttpServletRequest request) {
 //        String accessKey = request.getHeader("accessKey");
 //        String nonce = request.getHeader("nonce");
 //        String timestamp = request.getHeader("timestamp");
@@ -49,6 +51,6 @@ public class NameController {
 //        }
         // todo 调用次数 + 1 invokeCount
         String result = "POST 用户名字是" + user.getUsername();
-        return result;
+        return JSONUtil.createObj().set("yourName", result);
     }
 }
